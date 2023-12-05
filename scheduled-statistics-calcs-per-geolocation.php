@@ -2,6 +2,7 @@
 
 //require_once dirname(__FILE__) . '/statistics-common.php';
 //require_once dirname(__FILE__) . '/consolidate_geolocations.php';
+require_once dirname(__FILE__) . '/../tdp-common/tdp-common-plugin.php';
 
 /**
  * Retrieves all gd_place IDs from the current archive result.
