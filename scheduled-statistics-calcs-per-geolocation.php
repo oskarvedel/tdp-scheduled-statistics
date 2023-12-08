@@ -2,7 +2,7 @@
 
 //require_once dirname(__FILE__) . '/statistics-common.php';
 //require_once dirname(__FILE__) . '/consolidate_geolocations.php';
-require_once dirname(__FILE__) . '/../tdp-common/tdp-common-plugin.php';
+//require_once dirname(__FILE__) . '/../tdp-common/tdp-common-plugin.php';
 
 /**
  * Retrieves all gd_place IDs from the current archive result.
@@ -46,7 +46,7 @@ function get_statistics_data_for_list_of_gd_places($gd_place_ids_list)
     // Loop through each gd_place ID in the provided list
     foreach ($gd_place_ids_list as $gd_place_id) {
         // Get depotrum data for a single gd_place
-        $statistics_data_for_single_gd_place = get_statistics_data_for_single_gd_place($gd_place_id);
+        $statistics_data_for_single_gd_place = get_statistics_data_for_single_gd_place_statistics($gd_place_id);
         // Check if depotrum data is available for the gd_place
         if ($statistics_data_for_single_gd_place) {
             // Add depotrum data to the existing statistics data

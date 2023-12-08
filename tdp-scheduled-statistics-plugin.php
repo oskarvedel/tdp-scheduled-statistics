@@ -5,9 +5,9 @@
  * Version: 1.0
  */
 
-require_once dirname(__FILE__) . '/../tdp-common/tdp-common-plugin.php';
 require_once dirname(__FILE__) . '/scheduled-statistics-calcs-per-geolocation.php';
 require_once dirname(__FILE__) . '/scheduled-statistics-calcs-per-gd-place.php';
+include dirname(__FILE__) . '/tdp-common-statistics.php';
 
 // Define the activation function
 function tdp_scheduled_statistics_plugin_activation_function()
