@@ -19,19 +19,19 @@ function get_depotrum_data_for_single_gd_place($gd_place_id)
             $relTypeId = get_post_meta($depotrum_item['ID'], 'rel_type', true);
 
             // Check if the depotrum item is available
-            if (get_post_meta($depotrum_item['ID'], 'available', true)) {
-                // Create an array with depotrum data
-                $depotrum_data = array(
-                    'id' => $depotrum_item['ID'],
-                    'price' => get_post_meta($depotrum_item['ID'], 'price', true),
-                    'm2' => get_post_meta($relTypeId, 'm2', true),
-                    'm3' => get_post_meta($relTypeId, 'm3', true),
-                    'relLokationId' => get_post_meta($depotrum_item['ID'], 'rel_lokation', true),
-                );
+            //if (get_post_meta($depotrum_item['ID'], 'available', true)) {
+            // Create an array with depotrum data
+            $depotrum_data = array(
+                'id' => $depotrum_item['ID'],
+                'price' => get_post_meta($depotrum_item['ID'], 'price', true),
+                'm2' => get_post_meta($relTypeId, 'm2', true),
+                'm3' => get_post_meta($relTypeId, 'm3', true),
+                'relLokationId' => get_post_meta($depotrum_item['ID'], 'rel_lokation', true),
+            );
 
-                // Add depotrum data to the return array
-                $return_array[] = $depotrum_data;
-            }
+            // Add depotrum data to the return array
+            $return_array[] = $depotrum_data;
+            //}
         }
     }
     return $return_array;
