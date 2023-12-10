@@ -18,7 +18,7 @@ function get_depotrum_data_for_single_gd_place($gd_place_id)
         foreach ($gd_place->field('depotrum') as $depotrum_item) {
             $relTypeId = get_post_meta($depotrum_item['ID'], 'rel_type', true);
 
-            // Check if the depotrum item is available
+            // Check if the depotrum item is available (disabled for now)
             //if (get_post_meta($depotrum_item['ID'], 'available', true)) {
             // Create an array with depotrum data
             $depotrum_data = array(
