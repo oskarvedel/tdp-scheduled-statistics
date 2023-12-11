@@ -180,7 +180,6 @@ function find_lowest_or_highest_price($depotrum_data, $lowest_or_highest, $min, 
 function update_statistics_data_for_all_gd_places()
 {
     $gd_places = get_posts(array('post_type' => 'gd_place', 'posts_per_page' => -1));
-    $gd_places = get_posts(array('post_type' => 'gd_place', 'p' => 5667));
 
     foreach ($gd_places as $gd_place) {
         $depotrum_data = get_depotrum_data_for_single_gd_place($gd_place->ID);
