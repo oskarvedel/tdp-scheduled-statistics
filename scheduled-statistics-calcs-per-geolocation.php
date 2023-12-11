@@ -187,8 +187,14 @@ function update_statistics_data_for_all_geolocations()
         //trigger_error("updating data for geolocation: " . $geolocation->post_name, E_USER_WARNING);
 
         $gd_place_list = get_post_meta($geolocation_id, 'gd_place_list', false);
+
+        $message .= "gd_place_list var_dump: \n";
+        foreach ($gd_place_list as $gd_place) {
+            $message .= "gd_place_list element: " . $gd_place . "\n";
+        }
         $message .= "gd_place_list var_dump:" . var_dump($gd_place_list) . "\n";
         $message .= "gd_place_list print_r:" . print_r($gd_place_list) . "\n";
+
         trigger_error($message, E_USER_WARNING);
         $gd_place_ids_list = array_map(function ($gd_place) {
             return $gd_place['ID'];
