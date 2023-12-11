@@ -16,7 +16,8 @@ function get_depotrum_data_for_single_gd_place($gd_place_id)
     if ($gd_place && $gd_place->exists() && $gd_place->field('depotrum', true)) {
         // Loop through each depotrum item for the gd_place
         foreach ($gd_place->field('depotrum') as $depotrum_item) {
-            $relTypeId = get_post_meta($depotrum_item['ID'], 'rel_type', true);
+            $relType = get_post_meta($depotrum_item['ID'], 'rel_type', true);
+            $relTypeId = $relType['ID'];
 
             // Check if the depotrum item is available (disabled for now)
             //if (get_post_meta($depotrum_item['ID'], 'available', true)) {
@@ -179,6 +180,7 @@ function find_lowest_or_highest_price($depotrum_data, $lowest_or_highest, $min, 
 function update_statistics_data_for_all_gd_places()
 {
     $gd_places = get_posts(array('post_type' => 'gd_place', 'posts_per_page' => -1));
+    $gd_places = get_posts(array('post_type' => 'gd_place', 'p' => 5667));
 
     foreach ($gd_places as $gd_place) {
         $depotrum_data = get_depotrum_data_for_single_gd_place($gd_place->ID);
