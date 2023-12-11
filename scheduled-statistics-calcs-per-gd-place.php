@@ -16,7 +16,7 @@ function get_depotrum_data_for_single_gd_place($gd_place_id)
     if ($gd_place && $gd_place->exists() && $gd_place->field('depotrum', true)) {
         // Loop through each depotrum item for the gd_place
         foreach ($gd_place->field('depotrum') as $depotrum_item) {
-            $relTypeId = getRelTypeId($depotrum_item['ID']);
+            $relTypeId = getRelTypeId_statistics($depotrum_item['ID']);
 
             // Check if the depotrum item is available (disabled for now)
             //if (get_post_meta($depotrum_item['ID'], 'available', true)) {
