@@ -242,6 +242,5 @@ function update_statistics_data_for_all_gd_places()
             update_post_meta($gd_place->ID, 'very large size average m3 price', find_average_price($depotrum_data, 25, 1000, 'm3'));
         }
     }
-    xdebug_break();
     trigger_error("updated statistics data for all gd_places: " . $counter, E_USER_NOTICE);
 }
