@@ -183,11 +183,13 @@ function update_statistics_data_for_all_geolocations()
 
     foreach ($geolocations as $geolocation) {
         $geolocation_id = $geolocation->ID;
-        trigger_error("updating data for geolocation: " . $geolocation->post_name . " with id: " . $geolocation_id, E_USER_WARNING);
+        $message = "updating data for geolocation: " . $geolocation->post_name . " with id: " . $geolocation_id . "\n";
         //trigger_error("updating data for geolocation: " . $geolocation->post_name, E_USER_WARNING);
 
         $gd_place_list = get_post_meta($geolocation_id, 'gd_place_list', false);
-        trigger_error("gd_place_list var_dump:" . var_dump($gd_place_list), E_USER_WARNING);
+        $message .= "gd_place_list var_dump:" . var_dump($gd_place_list) . "\n";
+        $message .= "gd_place_list print_r:" . print_r($gd_place_list) . "\n";
+        trigger_error($message, E_USER_WARNING);
         $gd_place_ids_list = array_map(function ($gd_place) {
             return $gd_place['ID'];
         }, $gd_place_list);
