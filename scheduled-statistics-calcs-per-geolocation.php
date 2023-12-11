@@ -110,7 +110,6 @@ function find_smallest_or_largest_m2_size_per_geolocation($field, $value, $stati
 
 function find_lowest_or_highest_price_per_geolocation($field, $value, $statistics_data)
 {
-
     if (!isset($statistics_data[$field])) {
         trigger_error("value not set encountered in geolocations statistics-calcs. field: " . $field . " value: " . $value, E_USER_WARNING);
         return $value;
@@ -187,6 +186,7 @@ function update_statistics_data_for_all_geolocations()
         //trigger_error("updating data for geolocation: " . $geolocation->post_name, E_USER_WARNING);
 
         $gd_place_list = get_post_meta($geolocation_id, 'gd_place_list', false);
+        trigger_error("gd_place_list var_dump:" . var_dump($gd_place_list), E_USER_WARNING);
         $gd_place_ids_list = array_map(function ($gd_place) {
             return $gd_place['ID'];
         }, $gd_place_list);
