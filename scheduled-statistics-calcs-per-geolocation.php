@@ -111,7 +111,7 @@ function find_smallest_or_largest_m2_size_per_geolocation($field, $value, $stati
 function find_lowest_or_highest_price_per_geolocation($field, $value, $statistics_data)
 {
     if (!isset($statistics_data[$field])) {
-        trigger_error("value not set encountered in geolocations statistics-calcs. field: " . $field . " value: " . $value, E_USER_WARNING);
+        //trigger_error("value not set encountered in geolocations statistics-calcs. field: " . $field . " value: " . $value, E_USER_WARNING);
         return $value;
     }
 
