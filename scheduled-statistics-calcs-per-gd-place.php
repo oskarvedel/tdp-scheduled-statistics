@@ -16,8 +16,7 @@ function get_depotrum_data_for_single_gd_place($gd_place_id)
     if ($gd_place && $gd_place->exists() && $gd_place->field('depotrum', true)) {
         // Loop through each depotrum item for the gd_place
         foreach ($gd_place->field('depotrum') as $depotrum_item) {
-            $relType = get_post_meta($depotrum_item['ID'], 'rel_type', true);
-            $relTypeId = $relType['ID'];
+            $relTypeId = getRelTypeId($depotrum_item['ID']);
 
             // Check if the depotrum item is available (disabled for now)
             //if (get_post_meta($depotrum_item['ID'], 'available', true)) {
@@ -36,6 +35,17 @@ function get_depotrum_data_for_single_gd_place($gd_place_id)
         }
     }
     return $return_array;
+}
+
+function getRelTypeId($id)
+{
+    $relType = get_post_meta($id, 'rel_type', true);
+    if (is_array($relType)) {
+        trigger_error("Rel type is an array for depotrum with id: " . $id);
+        return $relType['ID'];
+    } else {
+        return $relType;
+    }
 }
 
 /**
@@ -179,9 +189,11 @@ function find_lowest_or_highest_price($depotrum_data, $lowest_or_highest, $min, 
 
 function update_statistics_data_for_all_gd_places()
 {
+    //xdebug_break();
     $gd_places = get_posts(array('post_type' => 'gd_place', 'posts_per_page' => -1));
-
+    $counter = 0;
     foreach ($gd_places as $gd_place) {
+        $counter++;
         $depotrum_data = get_depotrum_data_for_single_gd_place($gd_place->ID);
         //trigger_error("depotrum_data: for " . $gd_place->post_name . print_r($depotrum_data, true), E_USER_WARNING);
         if (!empty($depotrum_data)) {
@@ -230,5 +242,6 @@ function update_statistics_data_for_all_gd_places()
             update_post_meta($gd_place->ID, 'very large size average m3 price', find_average_price($depotrum_data, 25, 1000, 'm3'));
         }
     }
-    trigger_error("updated statistics data for all gd_places", E_USER_NOTICE);
+    xdebug_break();
+    trigger_error("updated statistics data for all gd_places: " . $counter, E_USER_NOTICE);
 }
