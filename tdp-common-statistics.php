@@ -115,5 +115,10 @@ function get_statistics_data_for_single_gd_place_statistics($gd_place_id)
         $return_array[$field] = $value;
     }
 
-    return $return_array;
+    if (count(array_filter($return_array, function($value) { return $value !== ""; })) == 0) {
+        return false;
+    } else {
+        return $return_array;
+    }
+
 }
