@@ -51,7 +51,8 @@ function get_statistics_data_for_list_of_gd_places($gd_place_ids_list)
         if ($statistics_data_for_single_gd_place) {
             // Add depotrum data to the existing statistics data
             foreach ($statistics_data_for_single_gd_place as $field => $value) {
-                if (isset($statistics_data[$field]) && is_numeric($value)) {
+                $value = floatval($value); //convert value to float
+                if ($value !== 0 && $value !== null) {
                     if (strpos($field, 'smallest') !== false || strpos($field, 'largest') !== false) {
                         $statistics_data[$field] = find_smallest_or_largest_m2_size_per_geolocation($field, $value, $statistics_data);
                     } else if (strpos($field, 'lowest') !== false || strpos($field, 'highest') !== false) {
@@ -186,8 +187,12 @@ function update_statistics_data_for_all_geolocations()
         //trigger_error("updating data for geolocation: " . $geolocation->post_name, E_USER_WARNING);
 
         $gd_place_list = get_post_meta($geolocation_id, 'gd_place_list', false);
+        $gd_place_ids_list = array_map(function ($gd_place) {
+            return $gd_place['ID'];
+        }, $gd_place_list);
 
-        $depotrum_data = get_statistics_data_for_list_of_gd_places($gd_place_list);
+
+        $depotrum_data = get_statistics_data_for_list_of_gd_places($gd_place_ids_list);
         //trigger_error("depotrum_data var_dump:" . var_dump($depotrum_data), E_USER_WARNING);
         foreach ($depotrum_data as $field => $value) {
             update_post_meta($geolocation_id, $field, $value);
