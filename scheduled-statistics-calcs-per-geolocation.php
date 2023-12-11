@@ -180,7 +180,6 @@ add_shortcode("update_gd_place_list_for_geolocation", "update_gd_place_list_for_
 function update_statistics_data_for_all_geolocations()
 {
     $geolocations = get_posts(array('post_type' => 'geolocations', 'posts_per_page' => -1));
-    $geolocations = get_posts(array('post_type' => 'geolocations', 'p' => 6345));
     foreach ($geolocations as $geolocation) {
         $geolocation_id = $geolocation->ID;
         $gd_place_ids_list = get_post_meta($geolocation_id, 'gd_place_list', false);
