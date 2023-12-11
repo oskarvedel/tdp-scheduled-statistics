@@ -186,7 +186,7 @@ function update_statistics_data_for_all_geolocations()
         $message = "updating data for geolocation: " . $geolocation->post_name . " with id: " . $geolocation_id . "\n";
         //trigger_error("updating data for geolocation: " . $geolocation->post_name, E_USER_WARNING);
 
-        $gd_place_list = get_post_meta($geolocation_id, 'gd_place_list', false);
+        $gd_place_ids_list = get_post_meta($geolocation_id, 'gd_place_list', false);
 
         $message .= "gd_place_list var_dump: \n";
         foreach ($gd_place_list as $gd_place) {
@@ -196,10 +196,6 @@ function update_statistics_data_for_all_geolocations()
         $message .= "gd_place_list print_r:" . print_r($gd_place_list) . "\n";
 
         trigger_error($message, E_USER_WARNING);
-        $gd_place_ids_list = array_map(function ($gd_place) {
-            return $gd_place['ID'];
-        }, $gd_place_list);
-
 
         $depotrum_data = get_statistics_data_for_list_of_gd_places($gd_place_ids_list);
         //trigger_error("depotrum_data var_dump:" . var_dump($depotrum_data), E_USER_WARNING);
