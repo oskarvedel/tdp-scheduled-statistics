@@ -37,7 +37,7 @@ function get_depotrum_data_for_single_gd_place($gd_place_id)
     return $return_array;
 }
 
-function getRelTypeId($id)
+function getRelTypeId_statistics($id)
 {
     $relType = get_post_meta($id, 'rel_type', true);
     if (is_array($relType)) {
