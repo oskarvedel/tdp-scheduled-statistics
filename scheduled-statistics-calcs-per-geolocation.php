@@ -183,6 +183,7 @@ function update_statistics_data_for_all_geolocations()
 
     foreach ($geolocations as $geolocation) {
         $geolocation_id = $geolocation->ID;
+        trigger_error("updating data for geolocation: " . $geolocation->post_name . " with id: " . $geolocation_id, E_USER_WARNING);
         //trigger_error("updating data for geolocation: " . $geolocation->post_name, E_USER_WARNING);
 
         $gd_place_list = get_post_meta($geolocation_id, 'gd_place_list', false);
