@@ -67,8 +67,6 @@ function get_statistics_data_for_list_of_gd_places($gd_place_ids_list)
         }
     }
 
-    //xdebug_break();
-
     // Calculate averages
     foreach ($statistics_data as $field => $value) {
         if (!is_numeric($value)) {
@@ -78,7 +76,6 @@ function get_statistics_data_for_list_of_gd_places($gd_place_ids_list)
             round($statistics_data[$field] = $value / $counter, 2);
         }
     }
-    //xdebug_break();
     return $statistics_data;
 }
 
