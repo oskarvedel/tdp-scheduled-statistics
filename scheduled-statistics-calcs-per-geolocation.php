@@ -121,65 +121,15 @@ function find_lowest_or_highest_price_per_geolocation($field, $new_value, $stati
     }
 }
 
-function update_gd_place_list_for_geolocation_func()
-{
-    //consolidate_geolocations();
-    //get current list of geolocation ids
-    /*
-    $geolocation_id = extract_geolocation_id_via_url();
-    if (!$geolocation_id) {
-        return;
-    }
-    $current_gd_place_id_list = get_post_meta($geolocation_id, 'gd_place_list', false);
-
-    //get list of place ids from archive result
-    $new_gd_place_list = get_all_gd_places_from_archive_result();
-*/
-    /*
-    echo "current gd_place_list var_dump:";
-    var_dump($current_gd_place_list);
-    echo "<br>";
-
-    echo "new_gd_place_ids_list var_dump:";
-    var_dump($new_gd_place_list);
-    */
-    /*
-    $geolocation_slug = extract_geolocation_slug_via_url();
-
-    // Check if the lists are different
-    if ($current_gd_place_id_list !== $new_gd_place_list['post_ids']) {
-        //if current_gd_place_list is unitialized, initialize it to prevent an error in the array_diff call
-        $current_gd_place_id_list = is_bool($current_gd_place_id_list) ? [] : $current_gd_place_id_list;
-        // Find the added IDs
-        $added_ids = array_diff($new_gd_place_list['post_ids'], $current_gd_place_id_list);
-        if (!empty($added_ids)) {
-            $message = 'gd_place_ids updated for location ' . $geolocation_slug . '/' . $geolocation_id . "\n";
-            $message .= 'New gd_place_list:';
-            foreach ($new_gd_place_list['post_names'] as $post_name) {
-                $message .= "\n" . $post_name;
-            }
-            $message .= "\n";
-            $message .= 'Added IDs: ' . implode(', ', $added_ids) . "\n";
-            trigger_error($message, E_USER_WARNING);
-        }
-    }
-
-    update_post_meta($geolocation_id, 'gd_place_names', $new_gd_place_list['post_names']);
-    update_post_meta($geolocation_id, 'gd_place_list', $new_gd_place_list['post_ids']);
-    update_post_meta($geolocation_id, 'num of gd_places', count($new_gd_place_list['post_ids']));
-    */
-}
-
-
-
-add_shortcode("update_gd_place_list_for_geolocation", "update_gd_place_list_for_geolocation_func");
-
 function update_statistics_data_for_all_geolocations()
 {
     $geolocations = get_posts(array('post_type' => 'geolocations', 'posts_per_page' => -1));
     foreach ($geolocations as $geolocation) {
         $geolocation_id = $geolocation->ID;
         $gd_place_ids_list = get_post_meta($geolocation_id, 'gd_place_list', false);
+        $gd_places_ids_within_5km = get_post_meta($geolocation_id, 'gd_places_within_5_km', true);
+        $gd_places_lists_combined = array_merge($gd_place_ids_list, $gd_places_ids_within_5km);
+        //$within = get_post_meta($current_geolocation_id, 'gd_places_within_' . $radius . '_km', true);
 
         $depotrum_data = get_statistics_data_for_list_of_gd_places($gd_place_ids_list);
         //trigger_error("depotrum_data var_dump:" . var_dump($depotrum_data), E_USER_WARNING);

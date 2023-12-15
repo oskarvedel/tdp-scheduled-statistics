@@ -62,7 +62,7 @@ add_action('admin_post_update_statistics_data_for_all_gd_places', 'handle_update
 //add a button to update statistics data for all geolocations the plugin settings page
 function add_update_statistics_data_for_all_geolocations_button($links)
 {
-    $consolidate_link = '<a href="' . esc_url(admin_url('admin-post.php?action=update_statistics_data_for_all_geolocations')) . '">Run statistics for Geolocations</a>';
+    $consolidate_link = '<a href="' . esc_url(admin_url('admin-post.php?action=update_statistics_data_for_all_geolocations')) . '">Run statistics for geolocations</a>';
     array_unshift($links, $consolidate_link);
     return $links;
 }
