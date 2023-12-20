@@ -135,9 +135,6 @@ function update_statistics_data_for_all_geolocations()
         //trigger_error("depotrum_data var_dump:" . var_dump($depotrum_data), E_USER_WARNING);
         foreach ($depotrum_data as $field => $value) {
             update_post_meta($geolocation_id, $field, $value);
-            if (strpos($field, 'lowest')  !== false) {
-                trigger_error("updating lowest price field: " . $field . " with value: " . $value .  "for geolocation "  . $geolocation->post_name, E_USER_WARNING);
-            }
             //trigger_error("updated field: " . $field . " with value: " . $value . "for geolocation" . $geolocation->post_name , E_USER_WARNING);
         }
     }
