@@ -121,13 +121,24 @@ function find_lowest_or_highest_price_per_geolocation($field, $new_value, $stati
     }
 }
 
+function get_gd_places_within_radius_statistics($geolocation, $radius)
+{
+    $all_gd_places_sorted_by_distance = get_post_meta($geolocation, 'all_gd_places_sorted_by_distance', true);
+    $gd_places_within_radius = array_filter($all_gd_places_sorted_by_distance, function ($distance) use ($radius) {
+        return $distance <= $radius;
+    });
+    //$gd_places_within_radius = array_keys($all_gd_places_sorted_by_distance);
+
+    return $gd_places_within_radius;
+}
+
 function update_statistics_data_for_all_geolocations()
 {
     $geolocations = get_posts(array('post_type' => 'geolocations', 'posts_per_page' => -1));
     foreach ($geolocations as $geolocation) {
         $geolocation_id = $geolocation->ID;
         $gd_place_ids_list = get_post_meta($geolocation_id, 'gd_place_list', false);
-        $gd_places_ids_within_5km = get_post_meta($geolocation_id, 'gd_places_within_5_km', true);
+        $gd_places_ids_within_5km = get_gd_places_within_radius_statistics($geolocation_id, 5);
         $gd_places_lists_combined = array_merge($gd_place_ids_list, $gd_places_ids_within_5km);
         //$within = get_post_meta($current_geolocation_id, 'gd_places_within_' . $radius . '_km', true);
 
