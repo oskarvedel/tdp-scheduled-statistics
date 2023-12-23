@@ -75,3 +75,22 @@ function handle_update_statistics_data_for_all_geolocations()
     exit;
 }
 add_action('admin_post_update_statistics_data_for_all_geolocations', 'handle_update_statistics_data_for_all_geolocations');
+
+
+function add_update_all_statistics_button($links)
+{
+    $consolidate_link = '<a href="' . esc_url(admin_url('admin-post.php?action=update_all_statistics')) . '">Run ALL statistics</a>';
+    array_unshift($links, $consolidate_link);
+    return $links;
+}
+add_filter('plugin_action_links_tdp-scheduled-statistics/tdp-scheduled-statistics-plugin.php', 'add_update_all_statistics_button');
+
+function handle_update_all_statistics()
+{
+    update_statistics_data_for_all_gd_places();
+    update_statistics_data_for_all_geolocations();
+    trigger_error("updated ALL statistics", E_USER_NOTICE);
+    wp_redirect(admin_url('plugins.php?s=tdp&plugin_status=all'));
+    exit;
+}
+add_action('admin_post_update_all_statistics', 'handle_update_all_statistics');
