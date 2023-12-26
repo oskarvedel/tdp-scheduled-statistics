@@ -9,38 +9,38 @@ require_once dirname(__FILE__) . '/statistics-calcs-per-geolocation.php';
 require_once dirname(__FILE__) . '/statistics-calcs-per-gd-place.php';
 include dirname(__FILE__) . '/tdp-common-statistics.php';
 
-// Define the activation function
-function tdp_scheduled_statistics_plugin_activation_function()
-{
-    // Check if the scheduled event is already set
-    // wp_schedule_event(time(), 'daily', 'tdp_scheduled_statistics_daily_event');
-    trigger_error("tdp_scheduled_statistics_plugin_daily_function activated", E_USER_NOTICE);
-}
+// // Define the activation function
+// function tdp_scheduled_statistics_plugin_activation_function()
+// {
+//     // Check if the scheduled event is already set
+//     // wp_schedule_event(time(), 'daily', 'tdp_scheduled_statistics_daily_event');
+//     trigger_error("tdp_scheduled_statistics_plugin_daily_function activated", E_USER_NOTICE);
+// }
 
-register_activation_hook(__FILE__, 'tdp_scheduled_statistics_plugin_activation_function');
+// register_activation_hook(__FILE__, 'tdp_scheduled_statistics_plugin_activation_function');
 
-// Define the deactivation function
-function  tdp_scheduled_statistics_plugin_deactivation_function()
-{
-    // Unschedule the daily event when the plugin or theme is deactivated
-    trigger_error("tdp_scheduled_statistics_plugin_daily_function deactivated", E_USER_NOTICE);
-    wp_clear_scheduled_hook('tdp_scheduled_statistics_daily_event');
-}
+// // Define the deactivation function
+// function  tdp_scheduled_statistics_plugin_deactivation_function()
+// {
+//     // Unschedule the daily event when the plugin or theme is deactivated
+//     trigger_error("tdp_scheduled_statistics_plugin_daily_function deactivated", E_USER_NOTICE);
+//     wp_clear_scheduled_hook('tdp_scheduled_statistics_daily_event');
+// }
 
-// Hook the activation and deactivation functions
-register_deactivation_hook(__FILE__, 'tdp_scheduled_statistics_plugin_deactivation_function');
+// // Hook the activation and deactivation functions
+// register_deactivation_hook(__FILE__, 'tdp_scheduled_statistics_plugin_deactivation_function');
 
 
-// Hook the daily function to the scheduled event
-add_action('tdp_scheduled_statistics_daily_event', 'tdp_scheduled_statistics_plugin_daily_function');
+// // Hook the daily function to the scheduled event
+// add_action('tdp_scheduled_statistics_daily_event', 'tdp_scheduled_statistics_plugin_daily_function');
 
-// Define the function to be executed daily
-function tdp_scheduled_statistics_plugin_daily_function()
-{
-    update_statistics_data_for_all_gd_places();
-    update_statistics_data_for_all_geolocations();
-    trigger_error("tdp_scheduled_statistics_plugin_daily_function just ran", E_USER_NOTICE);
-}
+// // Define the function to be executed daily
+// function tdp_scheduled_statistics_plugin_daily_function()
+// {
+//     update_statistics_data_for_all_gd_places();
+//     update_statistics_data_for_all_geolocations();
+//     trigger_error("tdp_scheduled_statistics_plugin_daily_function just ran", E_USER_NOTICE);
+// }
 
 //add a button to update statistics data for all gd_places the plugin settings page
 function add_update_statistics_data_for_all_gd_places_button($links)
