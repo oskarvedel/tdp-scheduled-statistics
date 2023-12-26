@@ -49,7 +49,7 @@ function add_update_statistics_data_for_all_gd_places_button($links)
     array_unshift($links, $consolidate_link);
     return $links;
 }
-add_filter('plugin_action_links_tdp-scheduled-statistics/tdp-scheduled-statistics-plugin.php', 'add_update_statistics_data_for_all_gd_places_button');
+add_filter('plugin_action_links_tdp-statistics/tdp-statistics-plugin.php', 'add_update_statistics_data_for_all_gd_places_button');
 
 function handle_update_statistics_data_for_all_gd_places()
 {
@@ -66,7 +66,7 @@ function add_update_statistics_data_for_all_geolocations_button($links)
     array_unshift($links, $consolidate_link);
     return $links;
 }
-add_filter('plugin_action_links_tdp-scheduled-statistics/tdp-scheduled-statistics-plugin.php', 'add_update_statistics_data_for_all_geolocations_button');
+add_filter('plugin_action_links_tdp-statistics/tdp-statistics-plugin.php', 'add_update_statistics_data_for_all_geolocations_button');
 
 function handle_update_statistics_data_for_all_geolocations()
 {
@@ -83,7 +83,7 @@ function add_update_all_statistics_button($links)
     array_unshift($links, $consolidate_link);
     return $links;
 }
-add_filter('plugin_action_links_tdp-scheduled-statistics/tdp-scheduled-statistics-plugin.php', 'add_update_all_statistics_button');
+add_filter('plugin_action_links_tdp-statistics/tdp-statistics-plugin.php', 'add_update_all_statistics_button');
 
 function handle_update_all_statistics()
 {
