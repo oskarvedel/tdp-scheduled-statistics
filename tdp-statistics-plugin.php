@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Plugin Name: tdp-scheduled-statistics-plugin
+ * Plugin Name: tdp-statistics
  * Version: 1.0
  */
 
-require_once dirname(__FILE__) . '/scheduled-statistics-calcs-per-geolocation.php';
-require_once dirname(__FILE__) . '/scheduled-statistics-calcs-per-gd-place.php';
+require_once dirname(__FILE__) . '/statistics-calcs-per-geolocation.php';
+require_once dirname(__FILE__) . '/statistics-calcs-per-gd-place.php';
 include dirname(__FILE__) . '/tdp-common-statistics.php';
 
 // Define the activation function
