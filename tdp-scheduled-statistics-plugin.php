@@ -13,7 +13,7 @@ include dirname(__FILE__) . '/tdp-common-statistics.php';
 function tdp_scheduled_statistics_plugin_activation_function()
 {
     // Check if the scheduled event is already set
-    wp_schedule_event(time(), 'daily', 'tdp_scheduled_statistics_daily_event');
+    // wp_schedule_event(time(), 'daily', 'tdp_scheduled_statistics_daily_event');
     trigger_error("tdp_scheduled_statistics_plugin_daily_function activated", E_USER_NOTICE);
 }
 
