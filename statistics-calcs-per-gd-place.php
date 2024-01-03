@@ -41,7 +41,7 @@ function getRelTypeId_statistics($id)
 {
     $relType = get_post_meta($id, 'rel_type', true);
     if (is_array($relType)) {
-        trigger_error("Rel type is an array for depotrum with id: " . $id);
+        //trigger_error("Rel type is an array for depotrum with id: " . $id);
         return $relType['ID'];
     } else {
         return $relType;
