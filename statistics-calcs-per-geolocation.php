@@ -123,7 +123,7 @@ function find_lowest_or_highest_price_per_geolocation($field, $new_value, $stati
 
 function get_gd_places_within_radius_statistics($geolocation, $radius)
 {
-    $all_gd_places_sorted_by_distance = get_post_meta($geolocation, 'all_gd_places_sorted_by_distance', true);
+    $all_gd_places_sorted_by_distance = get_post_meta($geolocation, 'all_gd_places_sorted_by_distance', false);
     $gd_places_within_radius = array_filter($all_gd_places_sorted_by_distance, function ($distance) use ($radius) {
         return $distance <= $radius;
     });
