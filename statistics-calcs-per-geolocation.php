@@ -56,7 +56,7 @@ function get_statistics_data_for_list_of_gd_places($gd_place_ids_list)
                         $statistics_data[$field] = find_lowest_or_highest_price_per_geolocation($field, $value, $statistics_data);
                     } else {
                         $statistics_data[$field] = add_fields($field, $value, $statistics_data);
-                        trigger_error("updarting non-smallestorlargest field: " . $field . " value: " . $value, E_USER_WARNING);
+                        // trigger_error("updarting non-smallestorlargest field: " . $field . " value: " . $value, E_USER_WARNING);
                     }
                 }
             }
