@@ -1,9 +1,5 @@
 <?php
 
-//require_once dirname(__FILE__) . '/statistics-common.php';
-//require_once dirname(__FILE__) . '/consolidate_geolocations.php';
-//require_once dirname(__FILE__) . '/../tdp-common/tdp-common-plugin.php';
-
 /**
  * Retrieves all gd_place IDs from the current archive result.
  *
@@ -60,7 +56,7 @@ function get_statistics_data_for_list_of_gd_places($gd_place_ids_list)
                         $statistics_data[$field] = find_lowest_or_highest_price_per_geolocation($field, $value, $statistics_data);
                     } else {
                         $statistics_data[$field] = add_fields($field, $value, $statistics_data);
-                        //trigger_error("updarting non-smallestorlargest field: " . $field . " value: " . $value, E_USER_WARNING);
+                        trigger_error("updarting non-smallestorlargest field: " . $field . " value: " . $value, E_USER_WARNING);
                     }
                 }
             }
@@ -137,12 +133,12 @@ function update_statistics_data_for_all_geolocations()
     $geolocations = get_posts(array('post_type' => 'geolocations', 'posts_per_page' => -1));
     foreach ($geolocations as $geolocation) {
         $geolocation_id = $geolocation->ID;
-        $gd_place_ids_list = get_post_meta($geolocation_id, 'gd_place_list', false);
-        $gd_places_ids_within_5km = get_gd_places_within_radius_statistics($geolocation_id, 5);
-        $gd_places_lists_combined = array_merge($gd_place_ids_list, $gd_places_ids_within_5km);
-        //$within = get_post_meta($current_geolocation_id, 'gd_places_within_' . $radius . '_km', true);
+        $seo_gd_place_list = get_post_meta($geolocation_id, 'seo_gd_place_list', false);
+        $seo_gd_place_list_ids = array_map(function ($item) {
+            return $item['ID']; // or return $item['id']; if $item is an array
+        }, $seo_gd_place_list);
 
-        $depotrum_data = get_statistics_data_for_list_of_gd_places($gd_place_ids_list);
+        $depotrum_data = get_statistics_data_for_list_of_gd_places($seo_gd_place_list_ids);
         //trigger_error("depotrum_data var_dump:" . var_dump($depotrum_data), E_USER_WARNING);
         foreach ($depotrum_data as $field => $value) {
             update_post_meta($geolocation_id, $field, $value);
