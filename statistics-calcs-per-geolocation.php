@@ -133,12 +133,28 @@ function update_statistics_data_for_all_geolocations()
     $geolocations = get_posts(array('post_type' => 'geolocations', 'posts_per_page' => -1));
     foreach ($geolocations as $geolocation) {
         $geolocation_id = $geolocation->ID;
-        $seo_gd_place_list = get_post_meta($geolocation_id, 'seo_gd_place_list', false);
-        $seo_gd_place_list_ids = array_map(function ($item) {
-            return $item['ID']; // or return $item['id']; if $item is an array
-        }, $seo_gd_place_list);
 
-        $depotrum_data = get_statistics_data_for_list_of_gd_places($seo_gd_place_list_ids);
+        //get all gd_places for geolocation
+        $gd_place_list = get_post_meta($geolocation_id, 'gd_place_list', false);
+        $gd_place_list_ids = array_map(function ($item) {
+            return intval($item['ID']); // or return $item['id']; if $item is an array
+        }, $gd_place_list);
+
+        //get all gd_places within 2 km
+        $gd_places_within_2_km = get_gd_places_within_radius($geolocation_id, 2);
+        // asort($gd_places_within_2_km);
+        $gd_places_within_2_km_ids = array_keys($gd_places_within_2_km);
+
+        //get all gd_places in neighbourhoods
+        $gd_places_in_neighbourhoods = get_gd_places_in_neighbourhoods($geolocation_id);
+        $gd_places_in_neighbourhoods_ids = array_keys($gd_places_in_neighbourhoods);
+
+        //combine all gd_place lists
+        $gd_place_list_combined = [];
+        $gd_place_list_combined = array_merge($gd_place_list_ids, $gd_places_within_2_km_ids, $gd_places_in_neighbourhoods_ids);
+        $gd_place_list_combined = array_unique($gd_place_list_combined);
+
+        $depotrum_data = get_statistics_data_for_list_of_gd_places($gd_place_list_combined);
         //trigger_error("depotrum_data var_dump:" . var_dump($depotrum_data), E_USER_WARNING);
         foreach ($depotrum_data as $field => $value) {
             update_post_meta($geolocation_id, $field, $value);
