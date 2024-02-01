@@ -9,24 +9,26 @@
 
 function get_depotrum_data_for_single_gd_place($gd_place_id)
 {
-    $gd_place = pods('gd_place', $gd_place_id);
+    $gd_place = get_post($gd_place_id);
     $return_array = [];
 
+    $depotrum = get_post_meta($gd_place_id, 'depotrum', false);
+
     // Check if the gd_place exists and has depotrum data
-    if ($gd_place && $gd_place->exists() && $gd_place->field('depotrum', true)) {
+    if ($gd_place && $depotrum) {
         // Loop through each depotrum item for the gd_place
-        foreach ($gd_place->field('depotrum') as $depotrum_item) {
-            $relTypeId = getRelTypeId_statistics($depotrum_item['ID']);
+        foreach ($depotrum as $depotrum_item) {
+            $relTypeId = getRelTypeId_statistics($depotrum_item);
 
             // Check if the depotrum item is available (disabled for now)
             //if (get_post_meta($depotrum_item['ID'], 'available', true)) {
             // Create an array with depotrum data
             $depotrum_data = array(
-                'id' => $depotrum_item['ID'],
-                'price' => get_post_meta($depotrum_item['ID'], 'price', true),
+                'id' => $depotrum_item,
+                'price' => get_post_meta($depotrum_item, 'price', true),
                 'm2' => get_post_meta($relTypeId, 'm2', true),
                 'm3' => get_post_meta($relTypeId, 'm3', true),
-                'relLokationId' => get_post_meta($depotrum_item['ID'], 'rel_lokation', true),
+                'relLokationId' => get_post_meta($depotrum_item, 'rel_lokation', true),
             );
 
             // Add depotrum data to the return array

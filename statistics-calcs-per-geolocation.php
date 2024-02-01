@@ -137,7 +137,7 @@ function update_statistics_data_for_all_geolocations()
         //get all gd_places for geolocation
         $gd_place_list = get_post_meta($geolocation_id, 'gd_place_list', false);
         $gd_place_list_ids = array_map(function ($item) {
-            return intval($item['ID']); // or return $item['id']; if $item is an array
+            return intval($item);
         }, $gd_place_list);
 
         //get all gd_places within 2 km
