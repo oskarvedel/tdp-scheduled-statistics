@@ -29,6 +29,8 @@ function get_depotrum_data_for_single_gd_place($gd_place_id)
                 'm2' => get_post_meta($relTypeId, 'm2', true),
                 'm3' => get_post_meta($relTypeId, 'm3', true),
                 'relLokationId' => get_post_meta($depotrum_item, 'rel_lokation', true),
+                'available' => get_post_meta($depotrum_item, 'available', true),
+                'num_of_available_units' => get_post_meta($depotrum_item, 'num_of_available_units', true),
             );
 
             // Add depotrum data to the return array
@@ -62,8 +64,16 @@ function find_num_of_units_available($depotrum_data)
 
     // Loop through each depotrum data item
     foreach ($depotrum_data as $depotrum_data_item) {
-        // Increment the counter for each depotrum unit
-        ++$counter;
+        if ($depotrum_data_item['available']) {
+            if ($depotrum_data_item['num_of_available_units'] > 0) {
+                // xdebug_break();
+                $counter += $depotrum_data_item['num_of_available_units'];
+            } else {
+                //choose random number between 1 and 6
+
+                $counter = $counter + $randomNumber = rand(1, 5);
+            }
+        }
     }
     return $counter;
 }
